@@ -6,6 +6,7 @@ import { highlight, languages } from "prismjs";
 import "prismjs/components/prism-clike";
 import "prismjs/components/prism-java";
 import "./style.css";
+import Graph from "../graph";
 
 interface TokenInfo {
   line: number;
@@ -29,6 +30,7 @@ const App = () => {
     errors: [],
     symbols: [],
   });
+  const [dot, setDot] = useState<string>("");
 
   // ENVIAR DATOS
   const onSubmit = () => {
@@ -61,6 +63,16 @@ const App = () => {
       };
       reader.readAsText(file);
     }
+  };
+
+  const getDot = () => {
+    fetch("http://localhost:5000/dot", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setDot(data.dot);
+      });
   };
 
   // GUARDAR CODIGO
@@ -103,6 +115,10 @@ const App = () => {
             <button className="send" type="button" onClick={onSubmit}>
               <span className="material-icons-two-tone">send</span>
               Compilar
+            </button>
+            <button className="send" type="button" onClick={getDot}>
+              <span className="material-icons-two-tone">send</span>
+              Ast
             </button>
           </div>
         </div>
@@ -154,6 +170,7 @@ const App = () => {
           </ul>
         </div>
       </section>
+      <Graph dot={dot} />
     </main>
   );
 };

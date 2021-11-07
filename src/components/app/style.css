@@ -78,6 +78,10 @@ textarea {
   font-weight: bold;
 }
 
+#graph-body {
+  width: 300px;
+}
+
 .tab {
   display: inline-flex;
   align-items: center;
@@ -116,7 +120,7 @@ label:hover {
 .actions {
   width: 100%;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   column-gap: 20px;
   justify-content: center;
 }
